@@ -1,0 +1,10 @@
+package: com.ns.template
+template.sql
+prop.properties
+log4j.properties
+AopNSDao.java
+AopNSJsonAction.java
+login.jsp
+view.jsp
+index.html
+pom.xml

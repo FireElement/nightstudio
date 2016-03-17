@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="adminUser">
+
+    <typeAlias alias="adminUser" type="org.nightstudio.common.bean.AdminUser" />
+
+    <sql id="w_fields">
+        name,
+        passwd,
+        email,
+        phone,
+        create_time
+    </sql>
+
+    <sql id="r_fields">
+        id,
+        update_time,
+        <include refid="w_fields"/>
+    </sql>
+
+    <resultMap id="adminUserMap" class="adminUser" >
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="passwd" column="passwd"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="getByName" parameterClass="String"
+            resultMap="adminUserMap">
+        select
+            <include refid="r_fields"/>
+        from admin_user where name = #value#
+    </select>
+
+</sqlMap>

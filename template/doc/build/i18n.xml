@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project name="i18n" default="i18n">
+	<description>Translate Chinese properties file to UNICODE</description>
+	
+	<property name="project_folder" location="../../"/>
+	<property name="source_folder" location="${project_folder}/doc/i18n"/>
+	<property name="dest_folder" location="${project_folder}/src/main/resources"/>
+	
+	<target name="i18n">
+		<delete>
+			<fileset dir="${dest_folder}">
+	    		<include name="error_msg*.properties"/>
+                <include name="page_msg*.properties"/>
+                <include name="ValidationMessages*.properties"/>
+			</fileset>
+		</delete>
+		
+		<native2ascii encoding="UTF-8" src="${source_folder}" dest="${dest_folder}" includes="**/*.properties"/>
+	</target>
+</project>

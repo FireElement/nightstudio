@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="template" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>template</display-name>
+
+	<context-param>	
+		<param-name>webAppRootKey</param-name>
+		<param-value>nightstudio.webapp.root</param-value>
+	</context-param>
+		
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring_*.xml</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:log4j.properties</param-value>
+	</context-param>
+	
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+    <filter>
+        <filter-name>tokenFilter</filter-name>
+        <filter-class>org.nightstudio.common.filter.token.TokenFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>tokenFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
+	<!--
+    <filter>
+        <filter-name>sessionFilter</filter-name>
+        <filter-class>org.nightstudio.common.filter.session.SessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sessionFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+	-->
+
+	<servlet>
+		<servlet-name>properties-util</servlet-name>
+		<servlet-class>org.nightstudio.common.util.properties.PropertiesUtil</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.util.Log4jConfigListener
+		</listener-class>
+	</listener>
+		
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>
+			org.springframework.web.util.IntrospectorCleanupListener
+		</listener-class>
+	</listener>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/spring</taglib-uri>
+            <taglib-location>
+                /WEB-INF/tld/spring.tld
+            </taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>/spring-form</taglib-uri>
+            <taglib-location>
+                /WEB-INF/tld/spring-form.tld
+            </taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>/c</taglib-uri>
+            <taglib-location>
+                /WEB-INF/tld/c.tld
+            </taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>/ns</taglib-uri>
+            <taglib-location>
+                /WEB-INF/tld/ns.tld
+            </taglib-location>
+        </taglib>
+    </jsp-config>
+</web-app>

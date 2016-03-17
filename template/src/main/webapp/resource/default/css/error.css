@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+.error {
+    color: #ff0000;
+}
+
+.error_block {
+    color: #000;
+    background-color: #ffEEEE;
+    border: 3px solid #ff0000;
+    padding: 8px;
+    margin: 16px;
+}
