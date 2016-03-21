@@ -12,5 +12,6 @@ public interface PropertiesConstant {
 
 	String REDIS_SERVER_1_IP="redis.server_1.ip";
 	String REDIS_SERVER_1_PORT="redis.server_1.port";
+	String REDIS_SERVER_1_PASSWD="redis.server_1.passwd";
 
 }

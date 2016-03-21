@@ -32,6 +32,7 @@ public class JedisFactory {
         JedisShardInfo shardInfo = new JedisShardInfo(
                 PropertiesUtil.getProperty(PropertiesConstant.REDIS_SERVER_1_IP),
                 PropertiesUtil.getProperty(PropertiesConstant.REDIS_SERVER_1_PORT));
+        shardInfo.setPassword(PropertiesUtil.getProperty(PropertiesConstant.REDIS_SERVER_1_PASSWD));
         sharedInfos.add(shardInfo);
 
         pool = new ShardedJedisPool(config, sharedInfos);

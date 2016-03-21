@@ -11,6 +11,7 @@
 			<fileset dir="${dest_folder}">
 	    		<include name="error_msg*.properties"/>
                 <include name="page_msg*.properties"/>
+				<include name="prop*.properties"/>
                 <include name="ValidationMessages*.properties"/>
 			</fileset>
 		</delete>
