@@ -36,9 +36,9 @@ WEB_FOLDER=$PROJ_NAME/src/main/webapp
 
 sed -i '' -e "s/{Template}/$PROJ_NAME/g" $WEB_FOLDER/WEB-INF/view/web/index/login.jsp
 
-sed -i '' -e "s/{template}/$PROJ_NAME/g" $WEB_FOLDER/WEB-INF/action-servlet.xml
+sed -i '' -e "s/template/$PROJ_NAME/g" $WEB_FOLDER/WEB-INF/action-servlet.xml
 
-sed -i '' -e "s/{template}/$PROJ_NAME/g" $WEB_FOLDER/WEB-INF/web.xml
+sed -i '' -e "s/template/$PROJ_NAME/g" $WEB_FOLDER/WEB-INF/web.xml
 
 YEAR=`date +%Y`
 sed -i '' -e "s/{Year}/$YEAR/g" $WEB_FOLDER/WEB-INF/view/web/index/login.jsp
