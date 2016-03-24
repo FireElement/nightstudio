@@ -10,11 +10,15 @@ import org.springframework.stereotype.Component;
  * Created by caoxuezhu01 on 14-9-14.
  */
 @Component
-public class AdminUserDao extends AbsNSDao<AdminUser> {
+public class AdminUserDao extends AbsNSDao {
     private static Log logger = LogFactory.getLog(AdminUserDao.class);
 
+    public AdminUserDao() {
+        super("adminUser");
+    }
+
     public AdminUser getByName(String name) throws Throwable {
-        return (AdminUser) this.getSqlMapClient().queryForObject("adminUser.getByName", name);
+        return (AdminUser) queryObj("getByName", name);
     }
 
 }

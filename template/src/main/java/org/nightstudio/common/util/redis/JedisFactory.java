@@ -1,5 +1,6 @@
 package org.nightstudio.common.util.redis;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nightstudio.common.util.constant.PropertiesConstant;
@@ -32,7 +33,10 @@ public class JedisFactory {
         JedisShardInfo shardInfo = new JedisShardInfo(
                 PropertiesUtil.getProperty(PropertiesConstant.REDIS_SERVER_1_IP),
                 PropertiesUtil.getProperty(PropertiesConstant.REDIS_SERVER_1_PORT));
-        shardInfo.setPassword(PropertiesUtil.getProperty(PropertiesConstant.REDIS_SERVER_1_PASSWD));
+        String passwd = PropertiesUtil.getProperty(PropertiesConstant.REDIS_SERVER_1_PASSWD);
+        if (StringUtils.isNotEmpty(passwd)) {
+            shardInfo.setPassword(passwd);
+        }
         sharedInfos.add(shardInfo);
 
         pool = new ShardedJedisPool(config, sharedInfos);

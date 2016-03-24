@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbsNSDao<T> {
@@ -16,6 +17,11 @@ public abstract class AbsNSDao<T> {
     protected SqlMapClientTemplate sqlMapClientTemplate;
     private SqlMapClient sqlMapClient = null;
     private Object lockObj = new Object();
+    private String namespace;
+
+    public AbsNSDao (String namespace) {
+        this.namespace = namespace;
+    }
 
     protected SqlMapClient getSqlMapClient() {
         if (sqlMapClient == null) {
@@ -43,6 +49,26 @@ public abstract class AbsNSDao<T> {
         paramMap.put(DaoConstant.PARAM_KEY_OFFSET, pagination.getFirstResult());
         paramMap.put(DaoConstant.PARAM_KEY_SIZE, pagination.getPageSize());
         return paramMap;
+    }
+
+    protected Object queryObj(String sql, Object param) throws Throwable {
+        return this.getSqlMapClient().queryForObject(namespace + "." + sql, param);
+    }
+
+    protected List queryList(String sql, Object param) throws Throwable {
+        return this.getSqlMapClient().queryForList(namespace + "." + sql, param);
+    }
+
+    protected Object insert(String sql, Object param) throws Throwable {
+        return this.getSqlMapClient().insert(namespace + "." + sql, param);
+    }
+
+    protected int update(String sql, Object param) throws Throwable {
+        return this.getSqlMapClient().update(namespace + "." + sql, param);
+    }
+
+    protected int delete(String sql, Object param) throws Throwable {
+        return this.getSqlMapClient().delete(namespace + "." + sql, param);
     }
 
 }
