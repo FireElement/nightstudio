@@ -189,7 +189,7 @@
                         <type>standalone</type>
                         <home>${project.build.directory}/tomcat7x</home>
                         <properties>
-                            <cargo.jvmargs>-Dfile.encoding=UTF-8</cargo.jvmargs>
+                            <cargo.jvmargs>-Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=60222</cargo.jvmargs>
                             <cargo.servlet.port>8080</cargo.servlet.port>
                             <cargo.servlet.uriencoding>UTF-8</cargo.servlet.uriencoding>
                         </properties>
