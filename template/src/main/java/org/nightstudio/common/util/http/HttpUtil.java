@@ -17,7 +17,7 @@ import org.nightstudio.common.util.exception.sys.NSException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Map;
+import java.net.URLEncoder;
 
 /**
  * @author xuezhu.cao Initial Created at 2011-10-27
@@ -39,30 +39,60 @@ public class HttpUtil {
         return client;
     }
 
-    public static String getContent(String url) throws IOException, NSException {
-        GetMethod getMethod = new GetMethod(url);
-        return getContent(getMethod);
+    public static String getContent(String url, int method, Object... params) throws IOException, NSException {
+        if (method == HttpClientConstant.Method.POST) {
+            return getPostContent(url, params);
+        } else {
+            return getGetContent(url, params);
+        }
     }
 
-    public static String getContent(String url, Map<String, String> params) throws IOException, NSException {
+    public static String getGetContent(String url, Object... params) throws IOException, NSException {
+        StringBuilder builder = new StringBuilder(100);
+        builder.append(url);
+        if (params != null && params.length > 1) {
+            builder.append("?");
+            for (int i = 0; i < params.length; i += 2) {
+                if (i + 1 >= params.length) {
+                    break;
+                }
+                builder.append(URLEncoder.encode(params[i].toString(), HttpClientConstant.CHARSET))
+                        .append("=")
+                        .append(URLEncoder.encode(params[i + 1].toString(), HttpClientConstant.CHARSET))
+                        .append("&");
+            }
+            builder.setLength(builder.length() - 1);
+        }
+        return getContent(builder.toString());
+    }
+
+    public static String getPostContent(String url, Object... params) throws IOException, NSException {
         PostMethod postMethod = new UTF8PostMethod(url);
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, HttpClientConstant.CHARSET);
 
-        if (params != null && params.size() > 0) {
-            NameValuePair[] data = new NameValuePair[params.size()];
-            String[] keys = params.keySet().toArray(new String[0]);
+        if (params != null && params.length > 1) {
+            NameValuePair[] data = new NameValuePair[params.length / 2];
             NameValuePair pair;
-            String key;
-            for (int i = 0; i < params.size(); i++) {
+            for (int i = 0; i < params.length; i += 2) {
+                if (i + 1 >= params.length) {
+                    break;
+                }
                 pair = new NameValuePair();
-                key = keys[i];
-                pair.setName(key);
-                pair.setValue(params.get(key));
+                pair.setName(params[i].toString());
+                pair.setValue(params[i + 1].toString());
                 data[i] = pair;
             }
             postMethod.setRequestBody(data);
         }
         return getContent(postMethod);
+    }
+
+    public static String getContent(String url) throws IOException, NSException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("get url: " + url);
+        }
+        GetMethod getMethod = new GetMethod(url);
+        return getContent(getMethod);
     }
 
     protected static String getContent(HttpMethod method) throws IOException, NSException {
