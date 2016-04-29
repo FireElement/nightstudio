@@ -32,6 +32,6 @@ public class TokenDao extends AbsRedisDao {
     }
 
     public void delete(Token token) throws Throwable {
-        delete(token.getToken());
+        delete(RedisUtil.getTokenKey(token.getToken()));
     }
 }
