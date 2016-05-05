@@ -37,6 +37,10 @@ public class SigFilter extends AbsFilter {
         if (!params.containsKey(SigConstant.PARAM_TIME_STAMP)) {
             return false;
         }
+        if (!params.containsKey(SigConstant.PARAM_SIG)) {
+            return false;
+        }
+
         try {
             long clientTime = Long.parseLong(params.get(SigConstant.PARAM_TIME_STAMP));
             if (Math.abs((clientTime - System.currentTimeMillis())) > SigConstant.EXPIRE_TIME) {
@@ -47,18 +51,16 @@ public class SigFilter extends AbsFilter {
             return false;
         }
 
-        if (!params.containsKey(SigConstant.PARAM_SIGN)) {
-            return false;
-        }
-
-        String sig = params.remove(SigConstant.PARAM_SIGN);
-        boolean checkResult = false;
+        String sig = params.remove(SigConstant.PARAM_SIG);
         try {
-            checkResult = SigUtil.isValidSig(sig, new ArrayList<String>(params.values()));
+            if (!SigUtil.isValidSig(sig, new ArrayList<String>(params.values()))) {
+                return false;
+            }
         } catch (Throwable e) {
             logger.warn("", e);
+            return false;
         }
-        return checkResult;
+        return true;
     }
 
     protected void handleBadRequest(ServletRequest request,

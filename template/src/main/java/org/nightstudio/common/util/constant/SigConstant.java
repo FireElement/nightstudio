@@ -5,7 +5,7 @@ package org.nightstudio.common.util.constant;
  */
 public interface SigConstant {
     String PARAM_TIME_STAMP = "timestamp";
-    String PARAM_SIGN = "sign";
+    String PARAM_SIG = "sig";
 
     long EXPIRE_TIME = 10 * 60 * 1000;
 }
