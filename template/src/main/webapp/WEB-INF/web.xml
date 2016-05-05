@@ -59,12 +59,27 @@
     </filter-mapping>
 	-->
 
+	<!--
+    <filter>
+        <filter-name>sigFilter</filter-name>
+        <filter-class>org.nightstudio.common.filter.sig.SigFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sigFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    -->
+
 	<servlet>
 		<servlet-name>properties-util</servlet-name>
 		<servlet-class>org.nightstudio.common.util.properties.PropertiesUtil</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	
+	<servlet-mapping>
+		<servlet-name>properties-util</servlet-name>
+		<url-pattern>*.doo</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<servlet-name>action</servlet-name>
 		<servlet-class>

@@ -22,11 +22,10 @@ public interface FilterConstant {
             PathConstant.WEB_PREFIX
     };
 
-    String[] SIGN_FILTER_IGNORE_PATHS = {
-            "pingxxPaySucceed.do"
+    String[] SIG_FILTER_IGNORE_PATHS = {
     };
 
-    String[] SIGN_FILTER_PATHS = {
+    String[] SIG_FILTER_PATHS = {
             PathConstant.WEB_PREFIX,
             PathConstant.APP_PREFIX
     };
